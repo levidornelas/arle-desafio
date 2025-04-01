@@ -8,6 +8,7 @@ class TarefaListView(ListView):
     template_name = "tarefas/lista.html"
     context_object_name = "tarefas"
     paginate_by = 5
+    ordering = ['id']
 
 class TarefaCreateView(CreateView):
     model = Tarefa
