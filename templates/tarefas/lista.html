@@ -1,53 +1,43 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Lista de Tarefas</h1>
+<h1 class="mb-4 text-center">Lista de Tarefas</h1>
 
 <!-- Incluir mensagens de feedback -->
 {% include "partials/mensagens.html" %}
 
 <!-- Botão para adicionar nova tarefa -->
-<a href="{% url 'tarefas:nova' %}" class="btn btn-primary mb-3">Nova Tarefa</a>
+<div class="d-flex justify-content-center mb-4">
+  <a href="{% url 'tarefas:nova' %}" class="btn btn-lg btn-primary">
+    <i class="bi bi-plus-circle"></i> Nova Tarefa
+  </a>
+</div>
 
-<!-- Lista de tarefas com paginação -->
-<ul class="list-group">
+<!-- Lista de tarefas -->
+<div class="list-group">
   {% for tarefa in tarefas %}
-  <li class="list-group-item d-flex justify-content-between align-items-center">
+  <div class="list-group-item d-flex justify-content-between align-items-start shadow-sm mb-3">
     <div>
-      <strong>{{ tarefa.titulo }}</strong> Categoria: {{ tarefa.categoria }}
+      <h5 class="mb-1">{{ tarefa.titulo }}</h5>
+      <p class="text-muted mb-2">Categoria: <strong>{{ tarefa.categoria }}</strong></p>
       {% if tarefa.concluida %}
       <span class="badge bg-success">Concluída</span>
       {% else %}
       <span class="badge bg-warning text-dark">Pendente</span>
       {% endif %}
       <!-- Descrição da tarefa -->
-      <p>{{ tarefa.descricao }}</p>
+      <p class="mb-0">{{ tarefa.descricao }}</p>
     </div>
-    <div>
-      <a href="{% url 'tarefas:editar' tarefa.id %}" class="btn btn-warning btn-sm">Editar</a>
-      <a href="{% url 'tarefas:excluir' tarefa.id %}" class="btn btn-danger btn-sm">Excluir</a>
+    <div class="d-flex align-items-center">
+      <a href="{% url 'tarefas:editar' tarefa.id %}" class="btn btn-warning btn-sm me-2">
+        <i class="bi bi-pencil"></i> Editar
+      </a>
+      <a href="{% url 'tarefas:excluir' tarefa.id %}" class="btn btn-danger btn-sm">
+        <i class="bi bi-trash"></i> Excluir
+      </a>
     </div>
-  </li>
+  </div>
   {% endfor %}
-</ul>
-
-<!-- Paginação -->
-<div class="pagination mt-3">
-  <span class="step-links">
-    {% if tarefas.has_previous %}
-    <a href="?page=1">&laquo; Primeira</a>
-    <a href="?page={{ tarefas.previous_page_number }}">Anterior</a>
-    {% endif %}
-
-    <span class="current">
-      Página {{ tarefas.number }} de {{ tarefas.paginator.num_pages }}.
-    </span>
-
-    {% if tarefas.has_next %}
-    <a href="?page={{ tarefas.next_page_number }}">Próxima</a>
-    <a href="?page={{ tarefas.paginator.num_pages }}">Última &raquo;</a>
-    {% endif %}
-  </span>
 </div>
 
 {% endblock %}
