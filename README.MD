@@ -58,11 +58,12 @@ source venv/bin/activate
 pip install django
 ```
 
-### 4. Configure o banco de dados
+### 4. Banco de dados configurado
 
-O projeto usa SQLite por padrão. Para criar o banco de dados, execute:
+O projeto usa SQLite por padrão, com um banco de dados já previamente populado. Caso queira fazer alguma alteração, altere os modelos e rode:
 
 ```bash
+python manage.py makemigrations
 python manage.py migrate
 ```
 
@@ -96,16 +97,6 @@ Agora você pode acessar o sistema em [http://127.0.0.1:8000/](http://127.0.0.1:
 - **Editar categoria**: Clique no botão de edição ao lado da categoria
 - **Excluir categoria**: Clique no botão de exclusão e confirme
 
-## Desenvolvimento
-
-### Criando novas migrações
-
-Crie e aplique as migrações:
-
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
 
 ## Licença
 
