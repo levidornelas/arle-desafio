@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Lista de Tarefas</h1>
+
+<!-- Incluir mensagens de feedback -->
+{% include "partials/mensagens.html" %}
+
+<!-- Botão para adicionar nova tarefa -->
+<a href="{% url 'tarefas:nova' %}" class="btn btn-primary mb-3">Nova Tarefa</a>
+
+<!-- Lista de tarefas com paginação -->
+<ul class="list-group">
+  {% for tarefa in tarefas %}
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <div>
+      <strong>{{ tarefa.titulo }}</strong> Categoria: {{ tarefa.categoria }}
+      {% if tarefa.concluida %}
+      <span class="badge bg-success">Concluída</span>
+      {% else %}
+      <span class="badge bg-warning text-dark">Pendente</span>
+      {% endif %}
+      <!-- Descrição da tarefa -->
+      <p>{{ tarefa.descricao }}</p>
+    </div>
+    <div>
+      <a href="{% url 'tarefas:editar' tarefa.id %}" class="btn btn-warning btn-sm">Editar</a>
+      <a href="{% url 'tarefas:excluir' tarefa.id %}" class="btn btn-danger btn-sm">Excluir</a>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+
+<!-- Paginação -->
+<div class="pagination mt-3">
+  <span class="step-links">
+    {% if tarefas.has_previous %}
+    <a href="?page=1">&laquo; Primeira</a>
+    <a href="?page={{ tarefas.previous_page_number }}">Anterior</a>
+    {% endif %}
+
+    <span class="current">
+      Página {{ tarefas.number }} de {{ tarefas.paginator.num_pages }}.
+    </span>
+
+    {% if tarefas.has_next %}
+    <a href="?page={{ tarefas.next_page_number }}">Próxima</a>
+    <a href="?page={{ tarefas.paginator.num_pages }}">Última &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+
+{% endblock %}

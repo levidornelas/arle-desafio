@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card shadow p-4">
+  <h2 class="mb-4">{% if object %}Editar{% else %}Criar{% endif %} Tarefa</h2>
+
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="row g-3">
+      {% for field in form %}
+      <div class="col-md-6">
+        <label class="form-label fw-bold">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}
+        <small class="form-text text-muted">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+        <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="mt-4">
+      <button type="submit" class="btn btn-success"><i class="bi bi-check-circle"></i> Salvar</button>
+      <a href="{% url 'tarefas:lista' %}" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
