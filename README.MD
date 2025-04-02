@@ -12,7 +12,7 @@ Este é um sistema de gerenciamento de tarefas desenvolvido com Django 5.1, que 
 
 ## Requisitos
 
-- Python 3.8+
+- Python 3.10+
 - Django 5.1.7
 
 ## Estrutura do Projeto
